@@ -37,11 +37,11 @@ def mode_choose():
 base_path = Path(__file__).parent
 
 with open(base_path / 'ai_studies.json', 'r', encoding='utf-8') as f:
-    normalinput = json.load(f)
+    studiesinput = json.load(f)
 
 def get_studies_data(mode, user_chat):
-    chat_dict = normalinput.get(mode, {}).get("user_chat", {})
-    return chat_dict.get(user_chat, normalinput[mode]["default"])
+    chat_dict = studiesinput.get(mode, {}).get("user_chat", {})
+    return chat_dict.get(user_chat, studiesinput[mode]["default"])
 
 start()
 while True:
@@ -51,16 +51,21 @@ while True:
             print(f"わかりました！では{user_name}さん、またお会いしましょう！")
             time.sleep(2)
             sys.exit()
-        elif user_chat in normalinput["normal"]["user_chat"]:
-            print(normalinput["normal"]["user_chat"][user_chat])
+        elif user_chat in studiesinput["normal"]["user_chat"]:
+            print(studiesinput["normal"]["user_chat"][user_chat])
         else:
-            print(normalinput["normal"]["default"])
+            print(studiesinput["normal"]["default"])
+
     if mode == "friends":
         f_user_chat = input("")
         if f_user_chat in user_finish_list:
             print(f"わかりました！では{user_name}さん、またお会いしましょう！")
             time.sleep(2)
             sys.exit()
+        elif f_user_chat in studiesinput["friends"]["f_user_chat"]:
+            print(studiesinput["friends"]["user_chat"][f_user_chat])
+        else:
+            print(studiesinput["friends"]["default"])
 
     if mode == "programming":
         p_user_chat = input("")
@@ -68,3 +73,7 @@ while True:
             print(f"わかりました！では{user_name}さん、またお会いしましょう！")
             time.sleep(2)
             sys.exit()
+        elif p_user_chat in studiesinput["programming"]["p_user_chat"]:
+            print(studiesinput["programming"]["user_chat"][f_user_chat])
+        else:
+            print(studiesinput["programming"]["default"])
